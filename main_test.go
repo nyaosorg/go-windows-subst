@@ -6,34 +6,6 @@ import (
 	"testing"
 )
 
-func TestUtf16toStringArray(t *testing.T) {
-	in := []uint16{'A', 0, 'B', 'C', 0, 'D', 'E', 'F'}
-	out := utf16toStringArray(in)
-
-	if len(out) != 3 {
-		t.Fatal("len(out) != 3")
-	}
-	if out[0] != "A" {
-		t.Fatal("out[0] != \"A\"")
-	}
-	if out[1] != "BC" {
-		t.Fatal("out[1] != \"BC\"")
-	}
-	if out[2] != "DEF" {
-		t.Fatal("out[2] != \"DEF\"")
-	}
-}
-
-func TestQueryDosDevices(t *testing.T) {
-	_, err := queryDosDevices()
-	if err != nil {
-		t.Fatal(err.Error())
-	}
-	// for i, s := range list {
-	// println(i, s)
-	//}
-}
-
 const SUBSTDRIVE = `B:`
 const SUBSTDIR = `C:\Windows`
 

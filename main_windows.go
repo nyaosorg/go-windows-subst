@@ -5,27 +5,6 @@ import (
 	"golang.org/x/sys/windows"
 )
 
-func utf16toStringArray(s []uint16) []string {
-	top := 0
-	p := 0
-	array := []string{}
-	for p < len(s) {
-		if s[p] == 0 {
-			if p > top {
-				tmp := windows.UTF16ToString(s[top:p])
-				array = append(array, tmp)
-			}
-			top = p + 1
-		}
-		p++
-	}
-	if p > top {
-		tmp := windows.UTF16ToString(s[top:p])
-		array = append(array, tmp)
-	}
-	return array
-}
-
 func queryDosDevice(deviceName string) (string, error) {
 	deviceNamePtr, err := windows.UTF16PtrFromString(deviceName)
 	if err != nil {
@@ -41,21 +20,7 @@ func queryDosDevice(deviceName string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return windows.UTF16ToString(targetPath16[:n]),nil
-}
-
-func queryDosDevices() ([]string, error) {
-	var targetPath16 [65536]uint16
-
-	n, err := windows.QueryDosDevice(nil,
-		&targetPath16[0],
-		uint32(len(targetPath16)-1))
-
-	if err != nil {
-		return nil, err
-	}
-
-	return utf16toStringArray(targetPath16[:n]), nil
+	return windows.UTF16ToString(targetPath16[:n]), nil
 }
 
 func defineDosDevice(flags uint32, deviceName string, targetPath string) error {

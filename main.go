@@ -7,10 +7,6 @@ const (
 	_DDD_REMOVE_DEFINITION     = 0x2
 )
 
-func List() ([]string, error) {
-	return queryDosDevices()
-}
-
 const PREFIX = `\??\`
 
 func QueryRaw(deviceName string) (string, error) {
