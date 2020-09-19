@@ -11,8 +11,19 @@ func List() ([]string, error) {
 	return queryDosDevices()
 }
 
-func Query(deviceName string) (string, error) {
+const PREFIX = `\??\`
+
+func QueryRaw(deviceName string) (string, error) {
 	return queryDosDevice(deviceName)
+}
+
+func Query(deviceName string) (string, error) {
+	result, err := queryDosDevice(deviceName)
+	len_prefix := len(PREFIX)
+	if len(result) >= len_prefix && result[:len_prefix] == PREFIX {
+		result = result[len_prefix:]
+	}
+	return result, err
 }
 
 func Define(deviceName, targetPath string) error {

@@ -41,11 +41,7 @@ func queryDosDevice(deviceName string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	result := windows.UTF16ToString(targetPath16[:n])
-	if len(result) >= 4 && result[:4] == `\??\` {
-		result = result[4:]
-	}
-	return result, nil
+	return windows.UTF16ToString(targetPath16[:n]),nil
 }
 
 func queryDosDevices() ([]string, error) {
