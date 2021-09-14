@@ -12,7 +12,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/zetamatta/go-windows-subst"
+	"github.com/nyaosorg/go-windows-subst"
 )
 
 func mains(args []string) error {
