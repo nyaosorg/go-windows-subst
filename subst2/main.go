@@ -15,6 +15,11 @@ func mains(args []string) error {
 			return err
 		}
 		fmt.Printf("%s => %s\n", args[0], target)
+		target, err = subst.QueryRaw(args[0])
+		if err != nil {
+			return err
+		}
+		fmt.Printf("(raw: `%s`)\n", target)
 		return nil
 	case 2:
 		if args[1] == "/D" {
