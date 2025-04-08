@@ -1,5 +1,7 @@
 package subst
 
+import "strings"
+
 const (
 	_DDD_EXACT_MATCH_ON_REMOVE = 0x4
 	_DDD_NO_BROADCAST_SYSTEM   = 0x8
@@ -7,7 +9,7 @@ const (
 	_DDD_REMOVE_DEFINITION     = 0x2
 )
 
-const PREFIX = `\??\`
+const _PREFIX = `\??\`
 
 func QueryRaw(deviceName string) (string, error) {
 	return queryDosDevice(deviceName)
@@ -15,11 +17,7 @@ func QueryRaw(deviceName string) (string, error) {
 
 func Query(deviceName string) (string, error) {
 	result, err := queryDosDevice(deviceName)
-	len_prefix := len(PREFIX)
-	if len(result) >= len_prefix && result[:len_prefix] == PREFIX {
-		result = result[len_prefix:]
-	}
-	return result, err
+	return strings.TrimPrefix(result, _PREFIX), err
 }
 
 func Define(deviceName, targetPath string) error {
